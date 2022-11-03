@@ -206,5 +206,4 @@ void main()
     mostrarElementosListaInicio();
     insertaFinalLista(8);
     mostrarElementosListaInicio();
-    printf("Prueba de github");
 }
