@@ -170,6 +170,21 @@ void mostrarElementosListaInicio()
     }
 }
 
+void encontrarTotalDeNodos(){
+    if(listaVacia()==1){
+        printf("No existen nodos en la lista\n");
+        return;
+    }
+    int i = 0, longitud = 0, cont = 0;
+    longitud = longitudLista();
+    struct nodo *temporal;
+    temporal = inicio;
+    for (i = 0; i<longitud; i++){
+        cont++;
+    }
+    printf("Existen %d nodos en la lista circular\n",cont);
+}
+
 // // Imprime todos los elementos de una lista desde el fin
 // void mostrarElementosListaFin()
 // {
@@ -206,4 +221,5 @@ void main()
     mostrarElementosListaInicio();
     insertaFinalLista(8);
     mostrarElementosListaInicio();
+    encontrarTotalDeNodos();
 }
