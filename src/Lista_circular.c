@@ -175,14 +175,9 @@ void encontrarTotalDeNodos(){
         printf("No existen nodos en la lista\n");
         return;
     }
-    int i = 0, longitud = 0, cont = 0;
+    int longitud = 0;
     longitud = longitudLista();
-    struct nodo *temporal;
-    temporal = inicio;
-    for (i = 0; i<longitud; i++){
-        cont++;
-    }
-    printf("Existen %d nodos en la lista circular\n",cont);
+    printf("Existen %d nodos en la lista circular\n",longitudLista());
 }
 
 // // Imprime todos los elementos de una lista desde el fin
