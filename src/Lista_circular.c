@@ -171,12 +171,11 @@ void mostrarElementosListaInicio()
 }
 
 void encontrarTotalDeNodos(){
-    if(listaVacia()==1){
+    int longitud = longitudLista();
+    if(longitud == 0){
         printf("No existen nodos en la lista\n");
         return;
     }
-    int longitud = 0;
-    longitud = longitudLista();
     printf("Existen %d nodos en la lista circular\n",longitudLista());
 }
 
