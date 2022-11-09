@@ -8,16 +8,16 @@
 struct nodo
 {
     int valor;
-    struct nodo *siguiente;
-    struct nodo *anterior;
+    struct nodo* siguiente;
+    struct nodo* anterior;
 };
 
 // Elemento que apunta a la parte inicial de la lista
-struct nodo *inicio = NULL;
+struct nodo* inicio = NULL;
 // Elemento que apunta a la parte final de la lista
-struct nodo *fin = NULL;
+struct nodo* fin = NULL;
 
-// Funciones que pide la tarea { -------------------------------------------------------------------
+// Funciones que pide la tarea ---------------------------------------------------------------------
 
 // Verifica si la lista está vacía
 int listaVacia(void)
@@ -34,7 +34,7 @@ int cantidadNodos(void)
     if (listaVacia() == 1)
         return 0;
 
-    struct nodo *temporal;
+    struct nodo* temporal;
     int longitud = 0;
     temporal = inicio;
     while (temporal != inicio || longitud == 0)
@@ -49,7 +49,7 @@ int cantidadNodos(void)
 void insertarFinal(int numero)
 {
     printf("Nuevo elemento en el final de la lista: %d\n", numero);
-    struct nodo *elemento = malloc(sizeof(struct nodo));
+    struct nodo* elemento = malloc(sizeof(struct nodo));
     if (elemento == NULL)
     {
         printf("No se puede crear un elemento en la lista");
@@ -95,7 +95,7 @@ void eliminarNodo(int numero)
         printf("La lista está vacía\n");
         return;
     }
-    struct nodo *indice = inicio;
+    struct nodo* indice = inicio;
     do
     {
         if (indice->valor == numero)
@@ -139,7 +139,7 @@ void eliminarMultiplesNodos(int numero)
         printf("La lista está vacía\n");
         return;
     }
-    struct nodo *indice = inicio;
+    struct nodo* indice = inicio;
     do
     {
         if (indice->valor == numero)
@@ -165,7 +165,7 @@ void eliminarMultiplesNodos(int numero)
                 if (indice == fin)
                     fin = indice->anterior;
 
-                struct nodo *temporal = indice;
+                struct nodo* temporal = indice;
                 indice = indice->siguiente;
                 free(temporal);
             }
@@ -178,8 +178,8 @@ void eliminarMultiplesNodos(int numero)
 // Elimina todos los elementos de la lista
 void eliminarLista(void)
 {
-    struct nodo *indice = inicio;
-    struct nodo *temporal = inicio;
+    struct nodo* indice = inicio;
+    struct nodo* temporal = inicio;
     while (listaVacia() != 1)
     {
         // El elemento a eliminar es el único en la lista
@@ -216,7 +216,7 @@ void imprimirElementosListaInicio()
     }
     int i = 0, longitud = 0;
     longitud = cantidadNodos();
-    struct nodo *temporal;
+    struct nodo* temporal;
     temporal = inicio;
     printf("\nElementos en la lista:\n");
     for (i = 0; i < longitud; i++)
@@ -235,7 +235,7 @@ void buscarNodo(int numero)
         printf("La lista está vacía\n");
         return;
     }
-    struct nodo *indice = inicio;
+    struct nodo* indice = inicio;
     int i = 0;
     do
     {
@@ -250,8 +250,7 @@ void buscarNodo(int numero)
     printf("El elemento %d no se puede encontrar\n", numero);
 }
 
-// ----------------------------------------------------------------------------------------------- }
-// Funciones extras { ------------------------------------------------------------------------------
+// Funciones extras --------------------------------------------------------------------------------
 
 // Imprime la longitud de la lista
 void imprimirLongitudLista(void)
@@ -277,12 +276,12 @@ void insertarNodosConsecutivosIgualesFinal(int numero, int cantidad_nodos)
     }
 }
 
-// Funciones 'insertar' pero que ahora insertan los elementos al inicio de la lista {{ -------------
+    // Funciones 'insertar' pero que ahora insertan los elementos al inicio de la lista ------------
 
 void insertarInicio(int numero)
 {
     printf("Nuevo elemento en el inicio de la lista: %d\n", numero);
-    struct nodo *elemento = malloc(sizeof(struct nodo));
+    struct nodo* elemento = malloc(sizeof(struct nodo));
     if (elemento == NULL)
     {
         printf("No se puede crear un elemento en la lista");
@@ -328,7 +327,7 @@ void insertarNodosConsecutivosIgualesInicio(int numero, int cantidad_nodos)
     }
 }
 
-// ---------------------------------------------------------------------------------------------- }}
+    // ---------------------------------------------------------------------------------------------
 
 int numeroRandom(int inicio, int fin)
 {
@@ -352,7 +351,7 @@ void imprimirElementosListaFinal()
         return;
     }
     int i;
-    struct nodo *temporal;
+    struct nodo* temporal;
     temporal = fin;
     printf("\nElementos en la lista:\n");
     for (i = cantidadNodos(); i > 0; i--)
@@ -363,9 +362,7 @@ void imprimirElementosListaFinal()
     printf("\n");
 }
 
-// ----------------------------------------------------------------------------------------------- }
-
-// Main
+// Main --------------------------------------------------------------------------------------------
 void main(void)
 {
     srand(time(NULL));
