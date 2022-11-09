@@ -1,7 +1,6 @@
-// Librería de entrada y salida de datos
-#include <stdio.h>
-// Librería para el manejo de memoria
-#include <stdlib.h>
+#include <stdio.h> // Librería de entrada y salida de datos
+#include <stdlib.h> // Librería para el manejo de memoria
+#include <time.h> // Librería para tener números random
 
 // Estructura básica del programa ------------------------------------------------------------------
 
@@ -18,7 +17,7 @@ struct nodo *inicio = NULL;
 // Elemento que apunta a la parte final de la lista
 struct nodo *fin = NULL;
 
-// Funciones que pide la tarea ---------------------------------------------------------------------
+// Funciones que pide la tarea { -------------------------------------------------------------------
 
 // Verifica si la lista está vacía
 int listaVacia(void)
@@ -212,19 +211,20 @@ void imprimirElementosListaInicio()
 {
     if (listaVacia() == 1)
     {
-        printf("No existen elementos a mostrar\n");
+        printf("\nNo existen elementos a mostrar\n");
         return;
     }
     int i = 0, longitud = 0;
     longitud = cantidadNodos();
     struct nodo *temporal;
     temporal = inicio;
-    printf("Elementos en la lista:\n");
+    printf("\nElementos en la lista:\n");
     for (i = 0; i < longitud; i++)
     {
         printf("Elemento[%d] = %d\n", i, temporal->valor);
         temporal = temporal->siguiente;
     }
+    printf("\n");
 }
 
 // Buscar un nodo en la lista
@@ -250,7 +250,8 @@ void buscarNodo(int numero)
     printf("El elemento %d no se puede encontrar\n", numero);
 }
 
-// Funciones extras --------------------------------------------------------------------------------
+// ----------------------------------------------------------------------------------------------- }
+// Funciones extras { ------------------------------------------------------------------------------
 
 // Imprime la longitud de la lista
 void imprimirLongitudLista(void)
@@ -276,7 +277,8 @@ void insertarNodosConsecutivosIgualesFinal(int numero, int cantidad_nodos)
     }
 }
 
-// Inserta un elemento al inicio de la lista
+// Funciones 'insertar' pero que ahora insertan los elementos al inicio de la lista {{ -------------
+
 void insertarInicio(int numero)
 {
     printf("Nuevo elemento en el inicio de la lista: %d\n", numero);
@@ -305,41 +307,101 @@ void insertarInicio(int numero)
     }
 }
 
-// Main --------------------------------------------------------------------------------------------
+void insertarNodosConsecutivosInicio(int cantidad_nodos)
+{
+    int i;
+    for (i = 0; i < cantidad_nodos; i++)
+    {
+        printf("Ingresa un número: ");
+        int numero;
+        scanf("%d", &numero);
+        insertarInicio(numero);
+    }
+}
+
+void insertarNodosConsecutivosIgualesInicio(int numero, int cantidad_nodos)
+{
+    int i;
+    for (i = 0; i < cantidad_nodos; i++)
+    {
+        insertarInicio(numero);
+    }
+}
+
+// ---------------------------------------------------------------------------------------------- }}
+
+int numeroRandom(int inicio, int fin)
+{
+    return rand () % (fin - inicio + 1) + inicio;   // Este está entre incio y fin
+}
+
+void pedirNumeroBuscar(void)
+{
+    printf("Introduce el elemento que quieres buscar: ");
+    int numero;
+    scanf("%d", &numero);
+    buscarNodo(numero);
+}
+
+// Imprime todos los elementos de una lista desde el final
+void imprimirElementosListaFinal()
+{
+    if (listaVacia() == 1)
+    {
+        printf("\nNo existen elementos a mostrar\n");
+        return;
+    }
+    int i;
+    struct nodo *temporal;
+    temporal = fin;
+    printf("\nElementos en la lista:\n");
+    for (i = cantidadNodos(); i > 0; i--)
+    {
+        printf("Elemento[%d] = %d\n", i - 1, temporal->valor);
+        temporal = temporal->anterior;
+    }
+    printf("\n");
+}
+
+// ----------------------------------------------------------------------------------------------- }
+
+// Main
 void main(void)
 {
+    srand(time(NULL));
+    printf("\n- Operaciones para insertar valores\n\n");
+
+    insertarFinal(numeroRandom(1,100));
+    insertarInicio(numeroRandom(1,100));
+    imprimirElementosListaInicio();
+
+    int rand = numeroRandom(1,100);
+    insertarNodosConsecutivosIgualesFinal(rand, numeroRandom(3,5));
+    insertarNodosConsecutivosIgualesInicio(numeroRandom(1,100), numeroRandom(1,5));
+    imprimirElementosListaInicio();
+
+    printf("Nuevos elementos al final:\n");
+    insertarNodosConsecutivosFinal(numeroRandom(1,3));
+    printf("\nNuevos elementos al inicio:\n");
+    insertarNodosConsecutivosInicio(numeroRandom(1,3));
+    imprimirElementosListaInicio();
+
+    printf("\n- Cantidad de nodos\n\n");
     imprimirLongitudLista();
-    eliminarNodo(1);
-    insertarFinal(7);
-    eliminarNodo(7);
-    imprimirElementosListaInicio();
-    imprimirLongitudLista();
-    insertarFinal(2);
-    imprimirLongitudLista();
-    insertarFinal(6);
-    insertarFinal(9);
-    imprimirLongitudLista();
-    imprimirElementosListaInicio();
-    eliminarNodo(1);
-    eliminarNodo(9);
-    eliminarNodo(2);
-    imprimirElementosListaInicio();
-    insertarFinal(8);
-    imprimirElementosListaInicio();
-    printf("\n\n\nInsertar varios elementos\n");
-    insertarNodosConsecutivosIgualesFinal(5, 3);
-    imprimirElementosListaInicio();
-    printf("\n\n\nEliminar varios elementos\n");
-    eliminarMultiplesNodos(5);
-    imprimirElementosListaInicio();
-    printf("\n\n\nEliminar la lista\n");
+
+    printf("\n- Buscar nodos\n\n");
+    pedirNumeroBuscar();
+
+    printf("\n- Operaciones de eliminar\n\n");
+    printf("Intento de eliminar un número aleatorio:\n");
+    eliminarNodo(numeroRandom(1,100));
+    printf("\nEliminar sólo un nodo:\n");
+    eliminarNodo(rand);
+    imprimirElementosListaFinal();
+    printf("Eliminar todos los nodos:\n");
+    eliminarMultiplesNodos(rand);
+    imprimirElementosListaFinal();
+    printf("Eliminar toda la lista:\n");
     eliminarLista();
-    imprimirElementosListaInicio();
-    insertarFinal(2);
-    insertarInicio(1);
-    insertarFinal(5);
-    insertarInicio(8);
-    insertarFinal(7);
-    buscarNodo(5);
-    imprimirElementosListaInicio();
+    imprimirElementosListaFinal();
 }
