@@ -3,6 +3,8 @@
 // Librería para el manejo de memoria
 #include <stdlib.h>
 
+// Estructura básica del programa ------------------------------------------------------------------
+
 // Definición de la estructura de un nodo en la lista
 struct nodo
 {
@@ -16,8 +18,20 @@ struct nodo *inicio = NULL;
 // Elemento que apunta a la parte final de la lista
 struct nodo *fin = NULL;
 
+// Funciones que pide la tarea ---------------------------------------------------------------------
+void insertarFinal(int numero);
+void insertarNodosConsecutivosFinal(int cantidad_nodos);
+int listaVacia(void);
+int cantidadNodos(void);
+void eliminarNodo(int numero);
+void eliminarMultiplesNodos(int numero);
+void eliminarLista(void);
+void buscarNodo(int numero);
+int listaVacia(void);
+int cantidadNodos(void);
+
 // Verifica si la lista está vacía
-int listaVacia()
+int listaVacia(void)
 {
     if (inicio == NULL)
         return 1;
@@ -25,8 +39,8 @@ int listaVacia()
         return 0;
 }
 
-// Devuelve la longitud de una lista
-int longitudLista()
+// Devuelve la longitud de la lista
+int cantidadNodos(void)
 {
     if (listaVacia() == 1)
         return 0;
@@ -43,7 +57,7 @@ int longitudLista()
 }
 
 // Inserta un elemento al final de una lista
-void insertaFinalLista(int numero)
+void insertarFinal(int numero)
 {
     printf("Nuevo elemento en el final de la lista: %d\n", numero);
     struct nodo *elemento = malloc(sizeof(struct nodo));
@@ -71,7 +85,8 @@ void insertaFinalLista(int numero)
     }
 }
 
-void insertarNodosConsecutivos(int cantidad_nodos)
+// Inserta varios nodos consecutivos (los valores se los pide al usuario)
+void insertarNodosConsecutivosFinal(int cantidad_nodos)
 {
     int i;
     for (i = 0; i < cantidad_nodos; i++)
@@ -79,21 +94,12 @@ void insertarNodosConsecutivos(int cantidad_nodos)
         printf("Ingresa un número: ");
         int numero;
         scanf("%d", &numero);
-        insertaFinalLista(numero);
-    }
-}
-
-void insertarNodosConsecutivosIguales(int numero, int cantidad_nodos)
-{
-    int i;
-    for (i = 0; i < cantidad_nodos; i++)
-    {
-        insertaFinalLista(numero);
+        insertarFinal(numero);
     }
 }
 
 // Eliminar un elemento de la lista
-void eliminaElemento(int numero)
+void eliminarNodo(int numero)
 {
     if (listaVacia() == 1)
     {
@@ -135,8 +141,9 @@ void eliminaElemento(int numero)
     printf("Elemento %d no se puede eliminar\n", numero);
 }
 
-// Eliminar múltiples elemento de la lista (todos los números que sean igual al que se ingresa)
-void eliminaMultiplesElementos(int numero)
+// Eliminar múltiples elemento de la lista (todos los números que sean igual al que
+// se le da a la función)
+void eliminarMultiplesNodos(int numero)
 {
     if (listaVacia() == 1)
     {
@@ -180,7 +187,7 @@ void eliminaMultiplesElementos(int numero)
 }
 
 // Elimina todos los elementos de la lista
-void eliminaLista(void)
+void eliminarLista(void)
 {
     struct nodo *indice = inicio;
     struct nodo *temporal = inicio;
@@ -211,7 +218,7 @@ void eliminaLista(void)
 }
 
 // Imprime todos los elementos de una lista desde el inicio
-void mostrarElementosListaInicio()
+void imprimirElementosListaInicio()
 {
     if (listaVacia() == 1)
     {
@@ -219,7 +226,7 @@ void mostrarElementosListaInicio()
         return;
     }
     int i = 0, longitud = 0;
-    longitud = longitudLista();
+    longitud = cantidadNodos();
     struct nodo *temporal;
     temporal = inicio;
     printf("Elementos en la lista:\n");
@@ -231,7 +238,7 @@ void mostrarElementosListaInicio()
 }
 
 // Buscar un nodo en la lista
-void buscaNodo(int numero)
+void buscarNodo(int numero)
 {
     if (listaVacia() == 1)
     {
@@ -253,51 +260,66 @@ void buscaNodo(int numero)
     printf("El elemento %d no se puede encontrar\n", numero);
 }
 
+// Funciones extras --------------------------------------------------------------------------------
+void imprimirLongitudLista(void);
+void insertarNodosConsecutivosIgualesFinal(int numero, int cantidad_nodos);
+
 // Imprime la longitud de la lista
-void printLongitudLista()
+void imprimirLongitudLista(void)
 {
-    int longitud = longitudLista();
+    int longitud = cantidadNodos();
     if (longitud == 0)
     {
         printf("No existen nodos en la lista\n");
         return;
     }
-    printf("Existen %d nodos en la lista circular\n", longitudLista());
+    printf("Existen %d nodos en la lista circular\n", cantidadNodos());
 }
 
-// Main
-void main()
+// Inserta varios nodos de forma consecutiva en la lista, la diferencia con la 
+// primera función es que no se le piden los valores al usuario sino que se le pasa
+// un número a la función y ese va a ser el valor de todos los nodos
+void insertarNodosConsecutivosIgualesFinal(int numero, int cantidad_nodos)
 {
-    printLongitudLista();
-    eliminaElemento(1);
-    insertaFinalLista(7);
-    eliminaElemento(7);
+    int i;
+    for (i = 0; i < cantidad_nodos; i++)
+    {
+        insertarFinal(numero);
+    }
+}
+
+// Main --------------------------------------------------------------------------------------------
+void main(void)
+{
+    imprimirLongitudLista();
+    eliminarNodo(1);
+    insertarFinal(7);
+    eliminarNodo(7);
     mostrarElementosListaInicio();
-    printLongitudLista();
-    insertaFinalLista(2);
-    printLongitudLista();
-    insertaFinalLista(6);
-    insertaFinalLista(9);
-    printLongitudLista();
+    imprimirLongitudLista();
+    insertarFinal(2);
+    imprimirLongitudLista();
+    insertarFinal(6);
+    insertarFinal(9);
+    imprimirLongitudLista();
     mostrarElementosListaInicio();
-    eliminaElemento(1);
-    eliminaElemento(9);
-    eliminaElemento(2);
+    eliminarNodo(1);
+    eliminarNodo(9);
+    eliminarNodo(2);
     mostrarElementosListaInicio();
-    insertaFinalLista(8);
+    insertarFinal(8);
     mostrarElementosListaInicio();
     printf("\n\n\nInsertar varios elementos\n");
-    insertarNodosConsecutivosIguales(5, 3);
+    insertarNodosConsecutivosIgualesFinal(5, 3);
     mostrarElementosListaInicio();
     printf("\n\n\nEliminar varios elementos\n");
-    eliminaMultiplesElementos(5);
+    eliminarMultiplesNodos(5);
     mostrarElementosListaInicio();
     printf("\n\n\nEliminar la lista\n");
-    eliminaLista();
+    eliminarLista();
     mostrarElementosListaInicio();
-    insertaFinalLista(2);
-    insertaFinalLista(7);
-    insertaFinalLista(5);
-    buscaNodo(7);
-    buscaNodo(2);
+    insertarFinal(2);
+    insertarFinal(7);
+    insertarFinal(5);
+    buscarNodo(7);
 }
