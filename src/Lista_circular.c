@@ -19,16 +19,6 @@ struct nodo *inicio = NULL;
 struct nodo *fin = NULL;
 
 // Funciones que pide la tarea ---------------------------------------------------------------------
-void insertarFinal(int numero);
-void insertarNodosConsecutivosFinal(int cantidad_nodos);
-int listaVacia(void);
-int cantidadNodos(void);
-void eliminarNodo(int numero);
-void eliminarMultiplesNodos(int numero);
-void eliminarLista(void);
-void buscarNodo(int numero);
-int listaVacia(void);
-int cantidadNodos(void);
 
 // Verifica si la lista está vacía
 int listaVacia(void)
@@ -56,7 +46,7 @@ int cantidadNodos(void)
     return longitud;
 }
 
-// Inserta un elemento al final de una lista
+// Inserta un elemento al final de la lista
 void insertarFinal(int numero)
 {
     printf("Nuevo elemento en el final de la lista: %d\n", numero);
@@ -76,11 +66,11 @@ void insertarFinal(int numero)
     }
     else
     {
-        struct nodo *indice = fin;
         elemento->valor = numero;
+        elemento->anterior = fin;
         elemento->siguiente = inicio;
-        indice->siguiente = elemento;
-        elemento->anterior = indice;
+        fin->siguiente = elemento;
+        inicio->anterior = elemento;
         fin = elemento;
     }
 }
@@ -141,8 +131,8 @@ void eliminarNodo(int numero)
     printf("Elemento %d no se puede eliminar\n", numero);
 }
 
-// Eliminar múltiples elemento de la lista (todos los números que sean igual al que
-// se le da a la función)
+// Eliminar múltiples elemento de la lista (todos los números que sean igual al
+// que se le da a la función)
 void eliminarMultiplesNodos(int numero)
 {
     if (listaVacia() == 1)
@@ -261,8 +251,6 @@ void buscarNodo(int numero)
 }
 
 // Funciones extras --------------------------------------------------------------------------------
-void imprimirLongitudLista(void);
-void insertarNodosConsecutivosIgualesFinal(int numero, int cantidad_nodos);
 
 // Imprime la longitud de la lista
 void imprimirLongitudLista(void)
@@ -288,6 +276,35 @@ void insertarNodosConsecutivosIgualesFinal(int numero, int cantidad_nodos)
     }
 }
 
+// Inserta un elemento al inicio de la lista
+void insertarInicio(int numero)
+{
+    printf("Nuevo elemento en el inicio de la lista: %d\n", numero);
+    struct nodo *elemento = malloc(sizeof(struct nodo));
+    if (elemento == NULL)
+    {
+        printf("No se puede crear un elemento en la lista");
+        return;
+    }
+    if (listaVacia() == 1)
+    {
+        elemento->valor = numero;
+        elemento->anterior = elemento;
+        elemento->siguiente = elemento;
+        inicio = elemento;
+        fin = elemento;
+    }
+    else
+    {
+        elemento->valor = numero;
+        elemento->anterior = fin;
+        elemento->siguiente = inicio;
+        fin->siguiente = elemento;
+        inicio->anterior = elemento;
+        inicio = elemento;
+    }
+}
+
 // Main --------------------------------------------------------------------------------------------
 void main(void)
 {
@@ -295,31 +312,34 @@ void main(void)
     eliminarNodo(1);
     insertarFinal(7);
     eliminarNodo(7);
-    mostrarElementosListaInicio();
+    imprimirElementosListaInicio();
     imprimirLongitudLista();
     insertarFinal(2);
     imprimirLongitudLista();
     insertarFinal(6);
     insertarFinal(9);
     imprimirLongitudLista();
-    mostrarElementosListaInicio();
+    imprimirElementosListaInicio();
     eliminarNodo(1);
     eliminarNodo(9);
     eliminarNodo(2);
-    mostrarElementosListaInicio();
+    imprimirElementosListaInicio();
     insertarFinal(8);
-    mostrarElementosListaInicio();
+    imprimirElementosListaInicio();
     printf("\n\n\nInsertar varios elementos\n");
     insertarNodosConsecutivosIgualesFinal(5, 3);
-    mostrarElementosListaInicio();
+    imprimirElementosListaInicio();
     printf("\n\n\nEliminar varios elementos\n");
     eliminarMultiplesNodos(5);
-    mostrarElementosListaInicio();
+    imprimirElementosListaInicio();
     printf("\n\n\nEliminar la lista\n");
     eliminarLista();
-    mostrarElementosListaInicio();
+    imprimirElementosListaInicio();
     insertarFinal(2);
-    insertarFinal(7);
+    insertarInicio(1);
     insertarFinal(5);
-    buscarNodo(7);
+    insertarInicio(8);
+    insertarFinal(7);
+    buscarNodo(5);
+    imprimirElementosListaInicio();
 }
