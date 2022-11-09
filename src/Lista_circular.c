@@ -62,48 +62,35 @@ void insertaFinalLista(int numero)
     }
     else
     {
-        struct nodo *indiceAnterior = NULL;
-        struct nodo *indiceActual = inicio;
-        while (indiceAnterior != fin)
-        {
-            indiceAnterior = indiceActual;
-            indiceActual = indiceActual->siguiente;
-        }
+        struct nodo *indice = fin;
         elemento->valor = numero;
         elemento->siguiente = inicio;
-        indiceAnterior->siguiente = elemento;
-        elemento->anterior = indiceAnterior;
+        indice->siguiente = elemento;
+        elemento->anterior = indice;
         fin = elemento;
     }
 }
 
-// // Inserta un elemento al inicio de una lista
-// void insertaInicioLista(int numero)
-// {
-//     printf("Nuevo elemento en el inicio de la lista: %d\n", numero);
-//     struct nodo *elemento = malloc(sizeof(struct nodo));
-//     if (elemento == NULL)
-//     {
-//         printf("No se puede crear un elemento en la lista");
-//         return;
-//     }
-//     if (listaVacia() == 1)
-//     {
-//         elemento->valor = numero;
-//         elemento->anterior = NULL;
-//         elemento->siguiente = NULL;
-//         inicio = elemento;
-//         fin = elemento;
-//     }
-//     else
-//     {
-//         inicio->anterior = elemento;
-//         elemento->valor = numero;
-//         elemento->siguiente = inicio;
-//         elemento->anterior = NULL;
-//         inicio = elemento;
-//     }
-// }
+void insertarNodosConsecutivos(int cantidad_nodos)
+{
+    int i;
+    for (i = 0; i < cantidad_nodos; i++)
+    {
+        printf("Ingresa un número: ");
+        int numero;
+        scanf("%d", &numero);
+        insertaFinalLista(numero);
+    }
+}
+
+void insertarNodosConsecutivosIguales(int numero, int cantidad_nodos)
+{
+    int i;
+    for (i = 0; i < cantidad_nodos; i++)
+    {
+        insertaFinalLista(numero);
+    }
+}
 
 // Eliminar un elemento de la lista
 void eliminaElemento(int numero)
@@ -113,41 +100,114 @@ void eliminaElemento(int numero)
         printf("La lista está vacía\n");
         return;
     }
-    struct nodo *indiceAnterior = NULL;
-    struct nodo *indiceActual = inicio;
-    while (indiceAnterior != fin)
+    struct nodo *indice = inicio;
+    do
     {
-        if (indiceActual->valor == numero)
+        if (indice->valor == numero)
         {
             // El elemento a eliminar es el único en la lista
             if (inicio == fin)
             {
-                printf("Eliminando: %d\n", indiceActual->valor);
+                printf("Eliminando: %d\n", indice->valor);
                 inicio = NULL;
                 fin = NULL;
-                free(indiceActual);
+                free(indice);
                 return;
             }
             // Hay más de un elemento en la lista
             else
             {
-                printf("Eliminando: %d\n", indiceActual->valor);
-                indiceActual->anterior->siguiente = indiceActual->siguiente;
-                indiceActual->siguiente->anterior = indiceActual->anterior;
+                printf("Eliminando: %d\n", indice->valor);
+                indice->anterior->siguiente = indice->siguiente;
+                indice->siguiente->anterior = indice->anterior;
 
-                if (indiceActual == inicio)
-                    inicio = indiceActual->siguiente;
-                if (indiceActual == fin)
-                    fin = indiceActual->anterior;
+                if (indice == inicio)
+                    inicio = indice->siguiente;
+                if (indice == fin)
+                    fin = indice->anterior;
 
-                free(indiceActual);
+                free(indice);
                 return;
             }
         }
-        indiceAnterior = indiceActual;
-        indiceActual = indiceActual->siguiente;
-    }
+        indice = indice->siguiente;
+    } while (indice != inicio);
     printf("Elemento %d no se puede eliminar\n", numero);
+}
+
+// Eliminar múltiples elemento de la lista (todos los números que sean igual al que se ingresa)
+void eliminaMultiplesElementos(int numero)
+{
+    if (listaVacia() == 1)
+    {
+        printf("La lista está vacía\n");
+        return;
+    }
+    struct nodo *indice = inicio;
+    do
+    {
+        if (indice->valor == numero)
+        {
+            // El elemento a eliminar es el único en la lista
+            if (inicio == fin)
+            {
+                printf("Eliminando: %d\n", indice->valor);
+                inicio = NULL;
+                fin = NULL;
+                free(indice);
+                return;
+            }
+            // Hay más de un elemento en la lista
+            else
+            {
+                printf("Eliminando: %d\n", indice->valor);
+                indice->anterior->siguiente = indice->siguiente;
+                indice->siguiente->anterior = indice->anterior;
+
+                if (indice == inicio)
+                    inicio = indice->siguiente;
+                if (indice == fin)
+                    fin = indice->anterior;
+
+                struct nodo *temporal = indice;
+                indice = indice->siguiente;
+                free(temporal);
+            }
+        }
+        else
+            indice = indice->siguiente;
+    } while (indice != inicio);
+}
+
+// Elimina todos los elementos de la lista
+void eliminaLista(void)
+{
+    struct nodo *indice = inicio;
+    struct nodo *temporal = inicio;
+    while (listaVacia() != 1)
+    {
+        // El elemento a eliminar es el único en la lista
+        if (inicio == fin)
+        {
+            printf("Eliminando: %d\n", indice->valor);
+            inicio = NULL;
+            fin = NULL;
+            free(indice);
+            return;
+        }
+        // Hay más de un elemento en la lista
+        else
+        {
+            printf("Eliminando: %d\n", indice->valor);
+            indice->anterior->siguiente = indice->siguiente;
+            indice->siguiente->anterior = indice->anterior;
+            inicio = indice->siguiente;
+            temporal = indice;
+            indice = indice->siguiente;
+            free(temporal);
+        }
+    }
+    return;
 }
 
 // Imprime todos los elementos de una lista desde el inicio
@@ -170,40 +230,46 @@ void mostrarElementosListaInicio()
     }
 }
 
-// // Imprime todos los elementos de una lista desde el fin
-// void mostrarElementosListaFin()
-// {
-//     int i = longitudLista();
-//     struct nodo *temporal;
-//     temporal = fin;
-//     printf("Elementos en la lista:\n");
-//     while (temporal != NULL)
-//     {
-//         printf("Elemento[%d] = %d\n", i - 1, temporal->valor);
-//         temporal = temporal->anterior;
-//         i--;
-//     }
-// }
+// Imprime la longitud de la lista
+void printLongitudLista()
+{
+    int longitud = longitudLista();
+    if (longitud == 0)
+    {
+        printf("No existen nodos en la lista\n");
+        return;
+    }
+    printf("Existen %d nodos en la lista circular\n", longitudLista());
+}
 
 // Main
 void main()
 {
-    printf("%d\n", longitudLista());
+    printLongitudLista();
     eliminaElemento(1);
     insertaFinalLista(7);
     eliminaElemento(7);
     mostrarElementosListaInicio();
-    printf("%d\n", longitudLista());
+    printLongitudLista();
     insertaFinalLista(2);
-    printf("%d\n", longitudLista());
+    printLongitudLista();
     insertaFinalLista(6);
     insertaFinalLista(9);
-    printf("%d\n", longitudLista());
+    printLongitudLista();
     mostrarElementosListaInicio();
     eliminaElemento(1);
     eliminaElemento(9);
     eliminaElemento(2);
     mostrarElementosListaInicio();
     insertaFinalLista(8);
+    mostrarElementosListaInicio();
+    printf("\n\n\nInsertar varios elementos\n");
+    insertarNodosConsecutivosIguales(5, 3);
+    mostrarElementosListaInicio();
+    printf("\n\n\nEliminar varios elementos\n");
+    eliminaMultiplesElementos(5);
+    mostrarElementosListaInicio();
+    printf("\n\n\nEliminar la lista\n");
+    eliminaLista();
     mostrarElementosListaInicio();
 }
