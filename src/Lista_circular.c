@@ -230,6 +230,29 @@ void mostrarElementosListaInicio()
     }
 }
 
+// Buscar un nodo en la lista
+void buscaNodo(int numero)
+{
+    if (listaVacia() == 1)
+    {
+        printf("La lista está vacía\n");
+        return;
+    }
+    struct nodo *indice = inicio;
+    int i = 0;
+    do
+    {
+        if (indice->valor == numero)
+        {
+            printf("El elemento %d se encuentra en el nodo [%d] de la lista\n", numero, i);
+            return;
+        }
+        indice = indice->siguiente;
+        i++;
+    } while (indice != inicio);
+    printf("El elemento %d no se puede encontrar\n", numero);
+}
+
 // Imprime la longitud de la lista
 void printLongitudLista()
 {
@@ -272,4 +295,9 @@ void main()
     printf("\n\n\nEliminar la lista\n");
     eliminaLista();
     mostrarElementosListaInicio();
+    insertaFinalLista(2);
+    insertaFinalLista(7);
+    insertaFinalLista(5);
+    buscaNodo(7);
+    buscaNodo(2);
 }
