@@ -406,4 +406,5 @@ void main(void)
     printf("Eliminar toda la lista:\n");
     eliminarLista();
     imprimirElementosListaFinal();
+    
 }
