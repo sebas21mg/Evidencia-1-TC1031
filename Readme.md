@@ -14,6 +14,8 @@ Samuel Roberto Acevedo Sandoval - A01026893
 
 ## Lista circular
 
+Solo de la sección del programa predeterminado
+
 ![Compilado lista 1](./images/Compilado_lista_1.png)
 
 ![Compilado lista 2](./images/Compilado_lista_2.png)
