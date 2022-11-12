@@ -6,13 +6,17 @@ Alejandro Arouesty Galván - A01782691
 
 Samuel Roberto Acevedo Sandoval - A01026893
 
-# Link al póster
+# Póster
 
-<https://www.canva.com/design/DAFQvI0EiZA/wDa6NBWCxWSNGlvatxmEzQ/edit?utm_content=DAFQvI0EiZA&utm_campaign=designshare&utm_medium=link2&utm_source=sharebutton>
+![Póster](./images/Poster.png)
+
+Link al poster en Canva: <https://www.canva.com/design/DAFQvI0EiZA/wDa6NBWCxWSNGlvatxmEzQ/edit?utm_content=DAFQvI0EiZA&utm_campaign=designshare&utm_medium=link2&utm_source=sharebutton>
 
 # Imágenes del compilado
 
 ## Lista circular
+
+Solo de la sección del programa predeterminado
 
 ![Compilado lista 1](./images/Compilado_lista_1.png)
 
