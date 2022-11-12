@@ -315,7 +315,7 @@ void pedirBuscarNodo(void)
 // Ejecuta un programa de prueba ya predeterminado (el usuario no introduce nada)
 void ejecucionPredeterminada(void)
 {
-    printf("\n- Operaciones para insertarNodos valores\n\n");
+    printf("\n- Operaciones para insertar valores\n\n");
 
     insertarNodos(numeroRandom(1, 100), 1, 1);
     insertarNodos(numeroRandom(1, 100), 1, 0);
