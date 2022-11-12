@@ -15,26 +15,7 @@ int queueVacio_6() {
     else
         return 0;
 }
-void imprimir() {
-    if (queueVacio_6()) {
-        printf("La cola esta vacia");
-        return;
-    }
-    struct queue *aux = tope;
-    printf("La lista contiene los siguientes elementos: \n");
-    while (aux != NULL) {
-        printf("%d con peso %d \n", aux->valor, aux->weight);
-        aux = aux->siguiente;
-    }
-}
-void eliminar_4() {
-    struct queue *aux;
-    while (tope != NULL) {
-        aux = tope;
-        tope = tope->siguiente;
-        free(aux);
-    }
-}
+
 void agregar_1(int valor, int weight) {
     struct queue *nuevo = malloc(sizeof(struct queue));
     if (nuevo == NULL)
@@ -85,6 +66,27 @@ void agregar_2(int valor, int weight, int cantidad) {
         cantidad--;
     }
 }
+
+void eliminar_3() {
+    if (queueVacio_6())
+        printf("La cola esta vacia");
+    else {
+        printf("Sacando el numero %d con peso %d \n", tope->valor, tope->weight);
+        struct queue *aux = tope;
+        tope = tope->siguiente;
+        free(aux);
+    }
+}
+
+void eliminar_4() {
+    struct queue *aux;
+    while (tope != NULL) {
+        aux = tope;
+        tope = tope->siguiente;
+        free(aux);
+    }
+}
+
 void buscarNodo_5(int valor) {
     if (queueVacio_6()) {
         printf("La cola esta vacia");
@@ -100,29 +102,6 @@ void buscarNodo_5(int valor) {
         i++;
     }
     printf("El nodo %d no esta en la cola \n", valor);
-}
-void eliminar_3() {
-    if (queueVacio_6())
-        printf("La cola esta vacia");
-    else {
-        printf("Sacando el numero %d con peso %d \n", tope->valor, tope->weight);
-        struct queue *aux = tope;
-        tope = tope->siguiente;
-        free(aux);
-    }
-}
-void contarNodos() {
-    if(queueVacio_6()) {
-        printf("La cola esta vacia");
-        return;
-    }
-    int i = 0;
-    struct queue *aux = tope;
-    while (aux != NULL) {
-        aux = aux->siguiente;
-        i++;
-    }
-    printf("La cola tiene %d nodos \n", i);
 }
 
 void sumarMismoPeso(int peso) {
@@ -141,9 +120,36 @@ void sumarMismoPeso(int peso) {
     printf("La suma de los nodos con peso %d es %d \n", peso, suma);
 }
 
-void promedioPorPeso(int peso) {
+void contarNodos() {
     if(queueVacio_6()) {
         printf("La cola esta vacia");
+        return;
+    }
+    int i = 0;
+    struct queue *aux = tope;
+    while (aux != NULL) {
+        aux = aux->siguiente;
+        i++;
+    }
+    printf("La cola tiene %d nodos \n", i);
+}
+
+void imprimir() {
+    if (queueVacio_6()) {
+        printf("La cola esta vacia");
+        return;
+    }
+    struct queue *aux = tope;
+    printf("La lista contiene los siguientes elementos: \n");
+    while (aux != NULL) {
+        printf("%d con peso %d \n", aux->valor, aux->weight);
+        aux = aux->siguiente;
+    }
+}
+
+void promedioPorPeso(int peso) {
+    if(queueVacio_6()) {
+        printf("Cola Vacia");
         return;
     }
     int suma = 0;
@@ -175,6 +181,8 @@ int main() {
     agregar_1(6, 3);
     agregar_1(1, 6);
     agregar_1(5, 6);
+    agregar_1(8, 7);
+    agregar_1(1, 10);
     printf("\n");
     imprimir();
     printf("\n");
@@ -189,13 +197,16 @@ int main() {
     printf("Buscar nodos: \n");
     printf("\n");
     buscarNodo_5(5);
+    printf("\n");
     printf("Contar nodos: \n");
     printf("\n");
     contarNodos();
+    printf("\n");
     printf("Promedio por pesos: \n");
     printf("\n");
     promedioPorPeso(3);
-    printf("Sumas de un peso especifico: \n");
+    printf("\n");
+    printf("Sumas de peso: \n");
     printf("\n");
     sumarMismoPeso(3);
     printf("\n");
